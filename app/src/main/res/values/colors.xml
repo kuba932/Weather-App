@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorPrimary">#000000</color>
     <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorSecondary">#C0C0C0</color>
-    <color name="colorSecondaryVariant">#018786</color>
-    <color name="colorOnSecondary">#000000</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
     <color name="textSilver">#C0C0C0</color>
-    <color name="Backdrop">#000000</color>
     <color name="goldText">#D4AF37</color>
     <color name="snowWhite">#FFFAFA</color>
 
 
     // My Material TextView Background colors
-    
+
     <color name="backgroundGrey">#808080</color>
     <color name="backgroundDarkGrey">#a9a9a9</color>
     <color name="backgroundDimGray">#696969</color>

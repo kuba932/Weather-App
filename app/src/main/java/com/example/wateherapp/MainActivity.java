@@ -1,9 +1,5 @@
 package com.example.wateherapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -14,21 +10,24 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -38,12 +37,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity implements LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
     //TODO menu w praywm górnym rogu
     //TODO ekran ładownia na czas ściągania danych
 
     final private String apiKey = "1d702a245455321c8dad01ee15794d96";
+
+    Toolbar toolbar;
+    DrawerLayout drawer;
+    NavigationView navigationView;
 
     TextView temperatureLarge;
     TextView weatherName;
@@ -65,10 +68,25 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     static private double latitude , longitude;
     private boolean isGPS = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.snowWhite));
+        toggle.syncState();
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         temperatureLarge = findViewById(R.id.temperatureLarge);
         weatherName = findViewById(R.id.textWeather);
@@ -132,12 +150,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 JsonObject windObject = responseObject.get("wind").getAsJsonObject();
                 double tempWindSpeed = windObject.get("speed").getAsDouble();
 
-                temperatureLarge.setText(String.valueOf(temp) + " °C");
+                temperatureLarge.setText(temp + " °C");
                 weatherName.setText(weather);
-                lowestTemperature.setText(String.valueOf(temp_night) + " °C");
-                windSpeed.setText(String.valueOf(tempWindSpeed) + " m/sec");
-                humidity.setText(String.valueOf(tempHumidity) + " %");
-                pressure.setText(String.valueOf(tempPressure) + " hPa");
+                lowestTemperature.setText(temp_night + " °C");
+                windSpeed.setText(tempWindSpeed + " m/sec");
+                humidity.setText(tempHumidity + " %");
+                pressure.setText(tempPressure + " hPa");
 
                 myIconLoader.loadImage(iconString);
             }
@@ -198,5 +216,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 isGPS = true;
             }
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id){
+            case (R.id.paris):
+                Toast.makeText(MainActivity.this, "Paryż lokacja", Toast.LENGTH_SHORT).show();
+
+        }
+
+        // tutaj ustawić miasta
+        //id kieruje do id itemów activity main menu
+
+        drawer.closeDrawer(GravityCompat.START);
+        return false;
     }
 }

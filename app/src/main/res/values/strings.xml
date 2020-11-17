@@ -3,4 +3,7 @@
     <string name="connection_error">No connection to the server</string>
     <string name="turn_on_GPS">Please, turn on your GPS</string>
     <string name="menu_home">Menu</string>
+    <string name="choose_country">Please, choose your country</string>
+    <string name="navigation_drawer_open">Drawer open</string>
+    <string name="navigation_drawer_close">Drawer open</string>
 </resources>
