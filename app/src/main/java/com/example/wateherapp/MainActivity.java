@@ -11,15 +11,19 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -39,7 +43,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
-    //TODO menu w praywm górnym rogu
     //TODO ekran ładownia na czas ściągania danych
 
     final private String apiKey = "1d702a245455321c8dad01ee15794d96";
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     static private double latitude , longitude;
     private boolean isGPS = false;
+    private boolean locationChanger = true;
 
 
     @Override
@@ -86,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        changeNavigationSize();
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
 
         temperatureLarge = findViewById(R.id.temperatureLarge);
@@ -131,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         getWeatherInterface = getWeatherRetrofit.create(GetWeatherInterface.class);
 
         getWeatherInterface.getWeather(String.valueOf(latitude),String.valueOf(longitude), apiKey, "metric").enqueue(new Callback<JsonObject>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
@@ -192,9 +199,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+        if(locationChanger) {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
             getConnection();
+        }
     }
 
     @Override
@@ -224,15 +233,40 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         int id = item.getItemId();
 
         switch (id){
+            case (R.id.current_Location):
+                locationChanger = true;
+                break;
             case (R.id.paris):
-                Toast.makeText(MainActivity.this, "Paryż lokacja", Toast.LENGTH_SHORT).show();
-
+                changeLocationManually(48.864716, 2.349014);
+                break;
+            case (R.id.manchester):
+                changeLocationManually(53.483959, -2.244644);
+                break;
+            case (R.id.warsaw):
+                changeLocationManually(52.229676, 21.012229);
+                break;
+            case (R.id.berlin):
+                changeLocationManually(52.520008, 13.404954);
+                break;
+            case (R.id.stockholm):
+                changeLocationManually(59.334591, 18.063240);
+                break;
         }
-
-        // tutaj ustawić miasta
-        //id kieruje do id itemów activity main menu
-
         drawer.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    private void changeNavigationSize(){
+        int width = getResources().getDisplayMetrics().widthPixels/2;
+        ViewGroup.LayoutParams params = navigationView.getLayoutParams();
+        params.width = width;
+        navigationView.setLayoutParams(params);
+    }
+
+    private void changeLocationManually (double tempLatitude, double tempLongitude){
+        locationChanger = false;
+        longitude = tempLongitude;
+        latitude = tempLatitude;
+        getConnection();
     }
 }

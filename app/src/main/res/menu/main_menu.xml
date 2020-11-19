@@ -3,10 +3,31 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/current_Location"
+            android:icon="@mipmap/ic_my_location"
+            android:title="@string/my_location" />
+        <item
+            android:id="@+id/berlin"
+            android:icon="@mipmap/ic_germany"
+            android:title="@string/berlinName" />
+        <item
+            android:id="@+id/manchester"
+            android:icon="@mipmap/ic_uk"
+            android:title="@string/manchesterName" />
+        <item
             android:id="@+id/paris"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="Paris" />
+            android:icon="@mipmap/ic_france"
+            android:iconTintMode="src_in"
+            android:title="@string/parisName" />
+        <item
+            android:id="@+id/stockholm"
+            android:icon="@mipmap/ic_sweden"
+            android:title="@string/stockholmName" />
 
+        <item
+            android:id="@+id/warsaw"
+            android:icon="@mipmap/ic_poland"
+            android:title="@string/warsawName" />
     </group>
 
 </menu>

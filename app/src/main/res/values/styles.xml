@@ -1,15 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-
-    </style>
-
-    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
 
     <style name="MyTemperatureLarge" parent="Widget.MaterialComponents.TextView">
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1 </item>
@@ -50,5 +45,16 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/textSilver</item>
     </style>
+
+
+    <style name="MenuTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/textSilver</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <dimen name="design_navigation_icon_size" tools:ignore="PrivateResource">24dp</dimen>
+
+
 
 </resources>

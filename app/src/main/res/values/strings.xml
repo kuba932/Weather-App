@@ -6,4 +6,10 @@
     <string name="choose_country">Please, choose your country</string>
     <string name="navigation_drawer_open">Drawer open</string>
     <string name="navigation_drawer_close">Drawer open</string>
+    <string name="parisName">Paris</string>
+    <string name="manchesterName">Manchester</string>
+    <string name="warsawName">Warsaw</string>
+    <string name="berlinName">Berlin</string>
+    <string name="stockholmName">Stockholm</string>
+    <string name="my_location">My location</string>
 </resources>
