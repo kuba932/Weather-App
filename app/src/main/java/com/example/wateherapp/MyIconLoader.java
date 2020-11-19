@@ -1,6 +1,5 @@
 package com.example.wateherapp;
 
-import android.os.Build;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -8,7 +7,6 @@ import com.squareup.picasso.Picasso;
 public class MyIconLoader {
 
     ImageView imageView;
-    String iconString;
 
     public MyIconLoader (ImageView imageView){
         this.imageView = imageView;
@@ -18,11 +16,11 @@ public class MyIconLoader {
 
         Picasso.get().setLoggingEnabled(true);
 
-        if(iconString.equals("01d")){
+        if(iconString.equals("01d") || iconString.equals("01n")){
 
             Picasso.get().load(R.mipmap.ic_sunny).resize(400,400).into(imageView);
 
-        }if(iconString.equals("02d")){
+        }else if(iconString.equals("02d") || iconString.equals("02n")){
 
             Picasso.get().load(R.mipmap.ic_cloudy_sun).resize(400,400).into(imageView);
 
