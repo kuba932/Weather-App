@@ -37,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
-    final private String apiKey = getString(R.string.DemoApiKey);
+    private String apiKey;
 
     Toolbar toolbar;
     DrawerLayout drawer;
@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        apiKey  = getString(R.string.DemoApiKey);
 
         //Adding toolbar
         toolbar = findViewById(R.id.toolbar);
