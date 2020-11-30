@@ -16,12 +16,12 @@ public class MyIconLoader {
 
         Picasso.get().setLoggingEnabled(true);
 
-        // I didn't like the "sunny" picture provided by OpenWeatherAPI
+            // Swapping default "sunny" picture to custom
         if(iconString.equals("01d") || iconString.equals("01n")){
 
             Picasso.get().load(R.mipmap.ic_sunny).resize(400,400).into(imageView);
 
-            // I didn't like the "cloudy" picture provided by OpenWeatherAPI
+            // Swapping default "cloudy" picture to custom
         }else if(iconString.equals("02d") || iconString.equals("02n")){
 
             Picasso.get().load(R.mipmap.ic_cloudy_sun).resize(400,400).into(imageView);

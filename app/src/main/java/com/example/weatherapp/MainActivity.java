@@ -24,8 +24,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -37,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
-    final private String apiKey = "1d702a245455321c8dad01ee15794d96";
+    final private String apiKey = getString(R.string.DemoApiKey);
 
     Toolbar toolbar;
     DrawerLayout drawer;
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         getConnection();
     }
 
-    // Passing location to OpenWeatherApi and fetching data for frontend part
+    // Passing location to OpenWeatherApi and fetching data for the frontend part
     private void getConnection() {
         getWeatherRetrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/")
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         navigationView.setLayoutParams(params);
     }
 
-    //  It allows the user to choose a city manually
+    //  This method allows the user to choose a city manually
     private void changeLocationManually (double tempLatitude, double tempLongitude){
         locationChanger = false;
         longitude = tempLongitude;
