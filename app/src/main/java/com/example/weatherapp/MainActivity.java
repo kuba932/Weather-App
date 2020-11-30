@@ -1,4 +1,4 @@
-package com.example.wateherapp;
+package com.example.weatherapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -28,8 +28,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;

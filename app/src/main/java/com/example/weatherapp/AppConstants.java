@@ -1,4 +1,4 @@
-package com.example.wateherapp;
+package com.example.weatherapp;
 
 /**
  * Class responsible for providing constant variables for a purpose of flawless connection between Activities

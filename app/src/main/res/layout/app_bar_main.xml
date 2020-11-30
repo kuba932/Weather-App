@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.wateherapp.MainActivity"
+    tools:context="com.example.weatherapp.MainActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
