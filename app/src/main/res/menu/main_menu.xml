@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/language"
-            android:icon="@drawable/ic_baseline_language_24"
-            android:title="@string/menu_home" />
+            android:id="@+id/current_Location"
+            android:icon="@mipmap/ic_my_location"
+            android:title="@string/my_location" />
+        <item
+            android:id="@+id/berlin"
+            android:icon="@mipmap/ic_germany"
+            android:title="@string/berlinName" />
+        <item
+            android:id="@+id/manchester"
+            android:icon="@mipmap/ic_uk"
+            android:title="@string/manchesterName" />
+        <item
+            android:id="@+id/paris"
+            android:icon="@mipmap/ic_france"
+            android:iconTintMode="src_in"
+            android:title="@string/parisName" />
+        <item
+            android:id="@+id/stockholm"
+            android:icon="@mipmap/ic_sweden"
+            android:title="@string/stockholmName" />
 
         <item
-            android:id="@+id/language1"
-            android:icon="@drawable/ic_baseline_language_24"
-            android:title="@string/menu_home" />
-
+            android:id="@+id/warsaw"
+            android:icon="@mipmap/ic_poland"
+            android:title="@string/warsawName" />
     </group>
+
 </menu>
