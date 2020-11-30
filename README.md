@@ -1,16 +1,21 @@
 # Weather App
 Simple weather app based on OpenWeatherMap API.
 
-### Table of content
+## Table of content
 * [General info](#general-info)
 * [Built with](#built-with)
 * [Status](#status)
 * [Setup](#setup)
 
-### General info
-asd
+## General info
+This simple app provides basic weather data to the user with only one screen.
 
-### Built with
+Weather App constalty checks current device's location. If location status change, app passes new cordinates to OpenWeatherMap server via Retrofit and OpenWeaterhMap API to fetch latest statisitcs.
+
+The user can also check weather in different cities after clicking on "hamburger" icon.
+
+I approached this project as an opportunity to better understand matter of REST API
+## Built with
  * Java
  * OpenWeatherMap API
  * Retrofit from Square
@@ -20,7 +25,7 @@ asd
 ## Status
 Lorem ipsum
 
-#### Setup
+## Setup
 *Lorem ipsum*
 
 ```
