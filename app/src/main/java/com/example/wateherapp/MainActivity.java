@@ -12,18 +12,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -42,8 +38,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, NavigationView.OnNavigationItemSelectedListener {
-
-    //TODO ekran ładownia na czas ściągania danych
 
     final private String apiKey = "1d702a245455321c8dad01ee15794d96";
 
@@ -69,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     MyIconLoader myIconLoader;
 
     static private double latitude , longitude;
-    private boolean isGPS = false;
-    private boolean locationChanger = true;
+    private boolean isGPS = false; //flag linked with GpsUtils class. It states current GPS status
+    private boolean locationChanger = true; // this flag makes sure that changeLocationManually() won't be overwritten by current location passed by GPS
 
 
     @Override
@@ -78,32 +72,33 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Adding toolbar
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // Setting up drawer layout
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //drawer.setDrawerListener(toggle);
         drawer.addDrawerListener(toggle);
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.snowWhite));
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        // Setting up navigation view. It is responsible for choosing different cities (that aren't based on current user location)
+        navigationView = findViewById(R.id.nav_view);
         changeNavigationSize();
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
 
         temperatureLarge = findViewById(R.id.temperatureLarge);
         weatherName = findViewById(R.id.textWeather);
-
         lowestTemperature = findViewById(R.id.lowestTemperature);
         windSpeed = findViewById(R.id.windSpeed);
         humidity = findViewById(R.id.humidity);
         pressure = findViewById(R.id.pressure);
-
         imageIcon = findViewById(R.id.weatherIcon);
 
+        // From now on, locationManager has accesses to the system location services
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         myIconLoader = new MyIconLoader(imageIcon);
@@ -128,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         getConnection();
     }
 
+    // Passing location to OpenWeatherApi and fetching data for frontend part
     private void getConnection() {
         getWeatherRetrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/")
@@ -164,17 +160,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 humidity.setText(tempHumidity + " %");
                 pressure.setText(tempPressure + " hPa");
 
+                // passing string which represents current weather icon
                 myIconLoader.loadImage(iconString);
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Toast.makeText(MainActivity.this, R.string.connection_error, Toast.LENGTH_SHORT).show();
-                Log.d("Retrofit error", Objects.requireNonNull(t.getMessage()));
+                Log.d("Retrofit error", t.getMessage());
             }
         });
     }
 
+    // Checks all needed system permissions required by this app
     private void checkPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -186,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
+    // Next step after checkPermission()
+    // if response is successful getLocation()
     @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
+    // 'Called when the location has changed'
     @Override
     public void onLocationChanged(@NonNull Location location) {
         if(locationChanger) {
@@ -206,17 +207,20 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
+    // Called when the provider is enabled by the user
     @Override
     public void onProviderEnabled(@NonNull String provider) {
         Log.d("location status", "location enabled");
     }
 
+    //Called when the provider is disabled by the user. If requestLocationUpdates is called on an already disabled provider, this method is called immediately.
     @Override
     public void onProviderDisabled(@NonNull String provider) {
         Log.d("location status", "location disabled");
+        Toast.makeText(MainActivity.this.getBaseContext(), getString(R.string.turn_on_GPS), Toast.LENGTH_SHORT).show();
     }
 
-    //GPS
+    //Process the result that is passed from turnGPSOn(final onGpsListener onGpsListener) from GPSUtils class
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -227,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
+    // Set a location for different cities
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -256,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         return false;
     }
 
+    // Customizing navigationView size so it won't take most of the screen
     private void changeNavigationSize(){
         int width = getResources().getDisplayMetrics().widthPixels/2;
         ViewGroup.LayoutParams params = navigationView.getLayoutParams();
@@ -263,6 +269,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         navigationView.setLayoutParams(params);
     }
 
+    //  It allows the user to choose a city manually
     private void changeLocationManually (double tempLatitude, double tempLongitude){
         locationChanger = false;
         longitude = tempLongitude;

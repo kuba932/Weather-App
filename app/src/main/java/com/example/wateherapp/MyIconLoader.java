@@ -16,14 +16,17 @@ public class MyIconLoader {
 
         Picasso.get().setLoggingEnabled(true);
 
+        // I didn't like the "sunny" picture provided by OpenWeatherAPI
         if(iconString.equals("01d") || iconString.equals("01n")){
 
             Picasso.get().load(R.mipmap.ic_sunny).resize(400,400).into(imageView);
 
+            // I didn't like the "cloudy" picture provided by OpenWeatherAPI
         }else if(iconString.equals("02d") || iconString.equals("02n")){
 
             Picasso.get().load(R.mipmap.ic_cloudy_sun).resize(400,400).into(imageView);
 
+            // Uploading default OpenWeatherAPI icons
         }else{
 
             String url = "https://openweathermap.org/img/wn/" + iconString + "@2x.png";
