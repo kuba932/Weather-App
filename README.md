@@ -14,7 +14,7 @@ I approached this project as an opportunity to improve my knowledge about REST A
 
 This simple app provides the user with basic weather data (temperature day & night, windspeed, humidity and pressure) using only one screen.
 
-The Weather App constantly checks the current device's location. If location status changes, app passes new coordinates to OpenWeatherMap server via Retrofit and OpenWeatherMap API to fetch latest statistics.
+The Weather App constantly checks the current device's location. If location status changes, the app passes new coordinates to OpenWeatherMap server via Retrofit and OpenWeatherMap API to fetch latest statistics.
 
 The user can also check weather in different cities after clicking on the "hamburger" icon.
 
