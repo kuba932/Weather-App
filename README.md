@@ -12,7 +12,7 @@ Simple weather app based on OpenWeatherMap API.
 ## General info
 I approached this project as an opportunity to improve my knowledge about REST API and to experiment with the conception of the Drawer Layout.
 
-This simple app provides the user with basic weather data (temperature day & night, windspeed, humidity and pressure) using only one screen.
+This simple app provides the user with basic weather data (temperature day & night, wind speed, humidity and pressure) using only one screen.
 
 The Weather App constantly checks the current device's location. If location status changes, the app passes new coordinates to OpenWeatherMap server via Retrofit and OpenWeatherMap API to fetch latest statistics.
 
