@@ -1,7 +1,7 @@
 # Weather App
 Simple weather app based on OpenWeatherMap API.
 
-![weather-app](https://i.imgur.com/A6DsHH0.png)
+![weather-app](https://i.imgur.com/A6DsHH0.png?2)
 
 ## Table of content
 * [General info](#general-info)
